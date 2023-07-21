@@ -54,7 +54,7 @@ def parse_sledcom_page(url):
         if not existing_news:
             # Вставуф ляем данные в базу данных
             cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                (title, news_url, content, '-', '-', '-', '-'))
+                (title, news_url, content, '-', '-', '0', '0'))
             conn.commit()
             print(f"Обнаружена новая новость: {news_url}")
 
@@ -100,7 +100,7 @@ def parse_mvd_page(url):
         if not existing_news:
             # Вставуф ляем данные в базу данных
             cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                (title, news_url, content, '-', '-', '-', '-'))
+                (title, news_url, content, '-', '-', '0', '0'))
             conn.commit()
             print(f"Обнаружена новая новость: {news_url}")
 
@@ -147,7 +147,7 @@ def parse_volgadmin_page(url):
         if not existing_news:
             # Вставуф ляем данные в базу данных
             cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                (title, news_url, content, '-', '-', '-', '-'))
+                (title, news_url, content, '-', '-', '0', '0'))
             conn.commit()
             print(f"Обнаружена новая новость: {news_url}")
 
@@ -193,7 +193,7 @@ def parse_volgograd_news_page(url):
         if not existing_news:
             # Вставуф ляем данные в базу данных
             cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                (title, news_url, content, '-', '-', '-', '-'))
+                (title, news_url, content, '-', '-', '0', '0'))
             conn.commit()
             print(f"Обнаружена новая новость: {news_url}")
 
@@ -240,7 +240,7 @@ def parse_news_page(url):
         if not existing_news:
             # Вставляем данные в базу данных
             cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                           (title, news_url, content, '-', '-', '-', '-'))
+                           (title, news_url, content, '-', '-', '0', '0'))
             conn.commit()
             print(f"Обнаружена новая новость: {news_url}")
 
@@ -293,7 +293,7 @@ def parse_genproc_page(url):
         if not existing_news:
             # Вставляем данные в базу данных
             cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                           (title, news_url, content, '-', '-', '-', '-'))
+                           (title, news_url, content, '-', '-', '0', '0'))
             conn.commit()
             print(f"Обнаружена новая новость: {news_url}")
 
@@ -342,7 +342,7 @@ def parse_vesti_page(url):
         if not existing_news:
             # Вставляем данные в базу данных
             cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                           (title, news_url, content, '-', '-', '-', '-'))
+                           (title, news_url, content, '-', '-', '0', '0'))
 
             conn.commit()
             print(f"Обнаружена новая новость: {news_url}")
