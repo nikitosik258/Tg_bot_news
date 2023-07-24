@@ -37,9 +37,9 @@ def names_entity(texts):
         # Извлечение и добавление сущностей в таблицу entity
         entities = []
         for span in doc.spans:
-            if span.type in [PER, ORG]:
+            if span.type in [PER, ORG, LOC]:
                 span.normalize(morph_vocab)
-                if span.normal not in entities:
+                if span.normal not in entities and span.normal not in ["Волгоград", "РФ", "Россия", "Волгоградская область", "ВОЛГОГРАД", "ТАСС"]:
                     entities.append(span.normal)
         name_entities = ', '.join(entities)
 
