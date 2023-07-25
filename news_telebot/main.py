@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import sqlite3
+import annotation
 import time
 import entity
 import urllib3
@@ -53,6 +54,7 @@ def parse_sledcom_page(url):
             cursor.execute('SELECT id FROM news WHERE url=?', (news_url,))
             existing_news = cursor.fetchone()
             if not existing_news:
+                cursor.execute("DELETE FROM news WHERE flag_news = ? and url like ?", (1, "%volgograd.sledcom.ru%"))
                 # Вставуф ляем данные в базу данных
                 cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
                     (title, news_url, content, '-', '-', '0', '0'))
@@ -63,6 +65,9 @@ def parse_sledcom_page(url):
                 cursor.execute("SELECT content FROM news")
                 texts = cursor.fetchall()
                 entity.names_entity(texts)
+                cursor.execute("SELECT content FROM news WHERE flag_annotation = 0")
+                texts = cursor.fetchall()
+                annotation.create_annotations(texts)
 
             else:
                 print("Новых новостей нет!")
@@ -103,6 +108,8 @@ def parse_mvd_page(url):
             cursor.execute('SELECT id FROM news WHERE url=?', (news_url,))
             existing_news = cursor.fetchone()
             if not existing_news:
+                cursor.execute("DELETE FROM news WHERE flag_news = ? and url like ?", (1, "%34.xn--b1aew.xn--p1ai%"))
+
                 # Вставуф ляем данные в базу данных
                 cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
                     (title, news_url, content, '-', '-', '0', '0'))
@@ -114,6 +121,9 @@ def parse_mvd_page(url):
                 texts = cursor.fetchall()
                 entity.names_entity(texts)
 
+                cursor.execute("SELECT content FROM news WHERE flag_annotation = 0")
+                texts = cursor.fetchall()
+                annotation.create_annotations(texts)
             else:
                 print("Новых новостей нет!")
 
@@ -154,6 +164,7 @@ def parse_volgadmin_page(url):
             cursor.execute('SELECT id FROM news WHERE url=?', (news_url,))
             existing_news = cursor.fetchone()
             if not existing_news:
+                cursor.execute("DELETE FROM news WHERE flag_news = ? and url like ?", (1, "%volgadmin.ru%"))
                 # Вставуф ляем данные в базу данных
                 cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
                     (title, news_url, content, '-', '-', '0', '0'))
@@ -165,6 +176,9 @@ def parse_volgadmin_page(url):
                 texts = cursor.fetchall()
                 entity.names_entity(texts)
 
+                cursor.execute("SELECT content FROM news WHERE flag_annotation = 0")
+                texts = cursor.fetchall()
+                annotation.create_annotations(texts)
             else:
                 print("Новых новостей нет!")
 
@@ -204,6 +218,7 @@ def parse_volgograd_news_page(url):
             cursor.execute('SELECT id FROM news WHERE url=?', (news_url,))
             existing_news = cursor.fetchone()
             if not existing_news:
+                cursor.execute("DELETE FROM news WHERE flag_news = ? and url like ?", (1, "%volgograd.ru%"))
                 # Вставуф ляем данные в базу данных
                 cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
                     (title, news_url, content, '-', '-', '0', '0'))
@@ -214,6 +229,10 @@ def parse_volgograd_news_page(url):
                 cursor.execute("SELECT content FROM news")
                 texts = cursor.fetchall()
                 entity.names_entity(texts)
+
+                cursor.execute("SELECT content FROM news WHERE flag_annotation = 0")
+                texts = cursor.fetchall()
+                annotation.create_annotations(texts)
 
             else:
                 print("Новых новостей нет!")
@@ -256,6 +275,7 @@ def parse_news_page(url):
             cursor.execute('SELECT id FROM news WHERE url=?', (news_url,))
             existing_news = cursor.fetchone()
             if not existing_news:
+                cursor.execute("DELETE FROM news WHERE flag_news = ? and url like ?", (1, "%tass.ru%"))
                 # Вставляем данные в базу данных
                 cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
                                (title, news_url, content, '-', '-', '0', '0'))
@@ -266,6 +286,10 @@ def parse_news_page(url):
                 cursor.execute("SELECT content FROM news")
                 texts = cursor.fetchall()
                 entity.names_entity(texts)
+
+                cursor.execute("SELECT content FROM news WHERE flag_annotation = 0")
+                texts = cursor.fetchall()
+                annotation.create_annotations(texts)
 
             else:
                 print("Новых новостей нет!")
@@ -312,6 +336,7 @@ def parse_genproc_page(url):
             cursor.execute('SELECT id FROM news WHERE url=?', (news_url,))
             existing_news = cursor.fetchone()
             if not existing_news:
+                cursor.execute("DELETE FROM news WHERE flag_news = ? and url like ?", (1, "%genproc.gov.ru%"))
                 # Вставляем данные в базу данных
                 cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
                                (title, news_url, content, '-', '-', '0', '0'))
@@ -322,6 +347,10 @@ def parse_genproc_page(url):
                 cursor.execute("SELECT content FROM news")
                 texts = cursor.fetchall()
                 entity.names_entity(texts)
+
+                cursor.execute("SELECT content FROM news WHERE flag_annotation = 0")
+                texts = cursor.fetchall()
+                annotation.create_annotations(texts)
 
             else:
                 print("Новых новостей нет!")
@@ -364,6 +393,7 @@ def parse_vesti_page(url):
             cursor.execute('SELECT id FROM news WHERE url=?', (news_url,))
             existing_news = cursor.fetchone()
             if not existing_news:
+                cursor.execute("DELETE FROM news WHERE flag_news = ? and url like ?", (1, "%vesti.ru%"))
                 # Вставляем данные в базу данных
                 cursor.execute('INSERT INTO news (title, url, content, annotation, name_entity, flag_annotation, flag_news) VALUES (?, ?, ?, ?, ?, ?, ?)',
                                (title, news_url, content, '-', '-', '0', '0'))
@@ -375,6 +405,10 @@ def parse_vesti_page(url):
                 cursor.execute("SELECT content FROM news")
                 texts = cursor.fetchall()
                 entity.names_entity(texts)
+
+                cursor.execute("SELECT content FROM news WHERE flag_annotation = 0")
+                texts = cursor.fetchall()
+                annotation.create_annotations(texts)
 
             else:
                 print("Новых новостей нет!")
